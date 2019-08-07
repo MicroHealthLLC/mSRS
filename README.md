@@ -1,5 +1,5 @@
-# msrs
-Strategic roadmap &amp; planning tool
+# mSRS
+Strategic Roadmap System.  Pretty much helps you with strategic planning and keeping track of that progress as simple as possible.
 
 # update centos
 
