@@ -1,0 +1,14 @@
+
+
+<p>
+  <strong>Date:</strong>
+  <%= @plan.date %>
+</p>
+
+<p>
+  <strong>Is locked:</strong>
+  <%= @plan.is_locked %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>

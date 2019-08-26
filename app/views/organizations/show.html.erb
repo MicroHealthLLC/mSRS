@@ -1,0 +1,74 @@
+<div>
+  <%= link_to 'Edit', edit_organization_path(@organization), class: 'btn btn-primary  pull-right' %>
+  <%= link_to 'Back', organizations_path, class: 'btn btn-warning pull-right' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2> <%= @organization.name %></h2>
+    <p>
+      <strong>Plan:</strong>
+      <%= @organization.plan %>
+    </p>
+
+    <p>
+      <strong>Is locked:</strong>
+      <%= @organization.is_locked %>
+    </p>
+
+    <p>
+      <strong>Strategic Objective:</strong>
+
+      <%= @organization.strategic_description %>
+      <ul>
+        <% @organization.strategic_objectives.each do |so| %>
+        <li>
+          <%= so.enumeration.to_s %>
+        </li>
+
+        <% end %>
+      </ul>
+    </p>
+
+    <p>
+      <strong>Customer Objective:</strong>
+      <%= @organization.customer_description %>
+    <ul>
+      <% @organization.customer_objectives.each do |co| %>
+        <li>
+          <%= co.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Internal Perspectives:</strong>
+      <%= @organization.internal_description %>
+    <ul>
+      <% @organization.internal_perspectives.each do |ip| %>
+        <li>
+          <%= ip.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Learning & Growth:</strong>
+      <%= @organization.learning_description %>
+    <ul>
+      <% @organization.learning_growths.each do |lg| %>
+        <li>
+          <%= lg.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+  </div>
+</div>
+
+

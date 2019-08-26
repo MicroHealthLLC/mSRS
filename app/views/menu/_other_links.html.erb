@@ -1,0 +1,24 @@
+
+<li class="<%= menu_active?('home') %>">
+  <a href="<%= "/" %>" title="Home"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Home</span></a>
+</li>
+<li>
+  <%= link_to  '/organizations'  do %>
+    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Organizations</span>
+  <% end  %>
+</li>
+<li>
+  <%= link_to '/departments' do %>
+    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Departments</span>
+  <% end  %>
+</li>
+
+
+
+<style>
+  li .fa-sort{
+    display: none;
+  }
+</style>
+
+

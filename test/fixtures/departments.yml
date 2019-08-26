@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan_id: 1
+  is_locked: false
+  strategic_description: MyText
+  customer_description: MyText
+  internal_description: MyText
+  learning_description: MyText
+
+two:
+  plan_id: 1
+  is_locked: false
+  strategic_description: MyText
+  customer_description: MyText
+  internal_description: MyText
+  learning_description: MyText

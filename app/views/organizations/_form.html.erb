@@ -1,0 +1,164 @@
+<fieldset>
+
+
+  <%= form_with(model: organization, local: true, html: {class: 'form-horizontal'}) do |form| %>
+    <% if organization.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+        <ul>
+          <% organization.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <label class="col-md-2"> Name: </label>
+      <div class="col-md-9">
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2"> Plan: </label>
+      <div class="col-md-9">
+        <%= form.select :plan_id, options_for_select(Plan.where(is_locked: false).pluck(:date)) ,{class: 'form-control'} %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Strategic Objective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :strategic_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="strategic_objectives">
+          <%= form.fields_for :strategic_objectives do |f| %>
+            <%= render partial: 'strategic_objective_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :strategic_objectives do  %>
+              <i class="fa fa-plus-circle"> Add Item </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Customer Objective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :customer_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="customer_objectives">
+          <%= form.fields_for :customer_objectives do |f| %>
+            <%= render partial: 'customer_objective_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :customer_objectives do  %>
+              <i class="fa fa-plus-circle"> Add Item </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <hr/>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Internal Perspective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :internal_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul>
+          <ul id="internal_perspectives">
+            <%= form.fields_for :internal_perspectives do |f| %>
+              <%= render partial: 'internal_perspective_fields', locals: { f: f } %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association  form, :internal_perspectives do  %>
+                <i class="fa fa-plus-circle"> Add Item </i>
+              <% end  %>
+            </div>
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Learning & Growth
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :learning_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="learning_growths">
+          <%= form.fields_for :learning_growths do |f| %>
+            <%= render partial: 'learning_growth_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :learning_growths do  %>
+              <i class="fa fa-plus-circle"> Add Item  </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group" >
+      <div class="col-md-11">
+        <%= link_to t('button_cancel'), :back, class: 'btn btn-warning pull-right' %>
+        <%= form.submit t(:button_create), class: 'btn btn-success pull-right' %>
+      </div>
+    </div>
+  <% end %>
+
+  <script>
+      $(function() {
+          function check_to_hide_or_show_add_link() {
+              $('#strategic_objectives .nested-fields:visible').length == 5 ?   $('#strategic_objectives .links a').hide() :  $('#strategic_objectives .links a').show();
+              $('#customer_objectives .nested-fields:visible').length == 5 ?   $('#customer_objectives .links a').hide() :  $('#customer_objectives .links a').show();
+              $('#internal_perspectives .nested-fields:visible').length == 5 ?   $('#internal_perspectives .links a').hide() :  $('#internal_perspectives .links a').show();
+              $('#learning_growths .nested-fields:visible').length == 5 ?   $('#learning_growths .links a').hide() :  $('#learning_growths .links a').show();
+          }
+
+          $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-insert', function() {
+              check_to_hide_or_show_add_link();
+              $('.select2-hidden-accessible').select2('destroy')
+              $('select').css('width', '100%')
+              $('select').select2({})
+
+          });
+
+          $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-remove', function() {
+              check_to_hide_or_show_add_link();
+          });
+
+          check_to_hide_or_show_add_link();
+      });
+  </script>
+</fieldset>
