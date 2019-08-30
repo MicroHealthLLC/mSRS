@@ -1,5 +1,12 @@
-<h1>New Department</h1>
+<div class="row">
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <%= render partial: 'form',
+               layout: 'shared/smart_widget_wrapper',
+               locals: {
+                   wid_id: 'organization',
+                   wid_title: 'New department ',
+                   department: @department
 
-<%= render 'form', department: @department %>
-
-<%= link_to 'Back', departments_path %>
+               } %>
+  </article>
+</div>

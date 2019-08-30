@@ -7,6 +7,10 @@ class StrategicObjective < Enumeration
     OptionName
   end
 
+  def self.abreviation
+    'S'
+  end
+
   def objects
     Principal.where(:enumeration_id => self.id)
   end

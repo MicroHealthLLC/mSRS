@@ -115,8 +115,26 @@ var named_function = function(){
     $( "select").css('width', '100%')
     $( "select").css('padding', '0')
     $.fn.modal.Constructor.prototype.enforceFocus = function () {};
-    $( "select" ).select2({
+    $( "select" ).not('.select2_with_tag').select2({
         theme: "bootstrap"
+    });
+    $('.select2_with_tag').select2({
+        tags: true,
+        theme: "bootstrap",
+        placeholder: "Select an item",
+        createTag: function (params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+
+            return {
+                id: term,
+                text: term,
+                newTag: true // add additional parameters
+            }
+        }
     });
     $( "label select" ).select2("destroy");
     $( ".fb-select.form-group select" ).select2("destroy");

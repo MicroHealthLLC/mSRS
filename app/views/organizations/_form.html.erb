@@ -149,9 +149,43 @@
           $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-insert', function() {
               check_to_hide_or_show_add_link();
               $('.select2-hidden-accessible').select2('destroy')
-              $('select').css('width', '100%')
-              $('select').select2({})
+              $( "select" ).not('.select2_with_tag').select2({
+                  theme: "bootstrap"
+              });
+              $('.select').css('width', '92%')
+              $('.select2_with_tag').select2({
+                  tags: true,
+                  theme: "bootstrap",
+                  placeholder: "Select an item",
+                  createTag: function (params) {
+                      var term = $.trim(params.term);
 
+                      if (term === '') {
+                          return null;
+                      }
+
+                      return {
+                          id: term,
+                          text: term,
+                          newTag: true // add additional parameters
+                      }
+                  }
+              });
+              $( "label select" ).select2("destroy");
+              $( ".fb-select.form-group select" ).select2("destroy");
+              $('.select2').prev().hide();
+              $('#strategic_objectives .counter').each(function(i){
+                  $(this).html('S' + (i+1)  )
+              })
+              $('#customer_objectives .counter').each(function(i){
+                  $(this).html('C' + (i+1)  )
+              })
+              $('#internal_perspectives .counter').each(function(i){
+                  $(this).html('I' + (i+1)  )
+              })
+              $('#learning_growths .counter').each(function(i){
+                  $(this).html('L' + (i+1)  )
+              })
           });
 
           $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-remove', function() {

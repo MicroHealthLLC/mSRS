@@ -7,6 +7,10 @@ class LearningGrowth < Enumeration
     OptionName
   end
 
+  def self.abreviation
+    'L'
+  end
+
   def objects
     Principal.where(:enumeration_id => self.id)
   end

@@ -15,9 +15,9 @@ class CoreDemographic < ApplicationRecord
 
   def organization
     if organization_id
-      organization_enum
+      organization
     else
-      OrganizationEnum.default
+      # OrganizationEnum.default
     end
   end
 

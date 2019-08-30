@@ -3,6 +3,10 @@ class CustomerObjective < Enumeration
 
   OptionName = :enumeration_customer_objective
 
+  def self.abreviation
+   'C'
+  end
+
   def option_name
     OptionName
   end

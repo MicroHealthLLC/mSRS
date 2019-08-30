@@ -2,6 +2,7 @@ class OrganizationsController < ProtectForgeryApplication
 
   before_action  :authenticate_user!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :create_enumaration, only: [:create, :update]
 
   # GET /organizations
   # GET /organizations.json
@@ -17,10 +18,10 @@ class OrganizationsController < ProtectForgeryApplication
   # GET /organizations/new
   def new
     @organization = Organization.new
-    @organization.strategic_objectives.build
-    @organization.customer_objectives.build
-    @organization.internal_perspectives.build
-    @organization.learning_growths.build
+    # @organization.strategic_objectives.build
+    # @organization.customer_objectives.build
+    # @organization.internal_perspectives.build
+    # @organization.learning_growths.build
   end
 
   # GET /organizations/1/edit
@@ -68,6 +69,42 @@ class OrganizationsController < ProtectForgeryApplication
   end
 
   private
+
+  def create_enumaration
+    params[:organization][:strategic_objectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless StrategicObjective.find_by_id(v['enumeration_id'])
+        e = StrategicObjective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:organization][:strategic_objectives_attributes]
+
+
+    params[:organization][:customer_objectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless CustomerObjective.find_by_id(v['enumeration_id'])
+        e = CustomerObjective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:organization][:customer_objectives_attributes]
+
+
+    params[:organization][:learning_growths_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless LearningGrowth.find_by_id(v['enumeration_id'])
+        e = LearningGrowth.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:organization][:learning_growths_attributes]
+
+    params[:organization][:internal_perspectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless InternalPerspective.find_by_id(v['enumeration_id'])
+        e = InternalPerspective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:organization][:internal_perspectives_attributes]
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_organization
     @organization = Organization.find(params[:id])

@@ -13,7 +13,7 @@
   <% @organizations.each do |organization| %>
     <tr>
       <td><%= organization.name %></td>
-      <td><%= organization.plan_id %></td>
+      <td><%= organization.plan %></td>
       <td><%= organization.is_locked %></td>
       <td><%= link_to 'Show', organization %></td>
       <td><%= link_to 'Edit', edit_organization_path(organization) %></td>

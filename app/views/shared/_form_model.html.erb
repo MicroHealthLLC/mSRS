@@ -1,5 +1,9 @@
 <li class='nested-fields' style="width: 100%; margin-top: 10px">
-  <%= f.select :enumeration_id, options_for_select(model.pluck(:name, :id), selected: f.object.enumeration_id), {include_blank: '--', class: 'form-control'}  %>
+  <strong class="counter"><%= model.abreviation %></strong>
+<span style="">
+   <%= f.select :enumeration_id, options_for_select(model.pluck(:name, :id), selected: f.object.enumeration_id), {include_blank: '--'}, { class: 'form-control select2_with_tag'}  %>
+
+</span>
   <%= f.hidden_field :enumeration_type %>
   <%= f.hidden_field :object_type %>
   <%= f.hidden_field :object_id %>

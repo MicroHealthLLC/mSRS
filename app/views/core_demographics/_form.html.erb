@@ -71,7 +71,7 @@
                <div class="form-group">
               <%= f.label t('organization'), class: 'col-md-2 control-label' %>
               <div class="col-md-8">
-                <%= f.select(:organization_id, options_for_select(OrganizationEnum.active.pluck(:name, :id), selected: f.object.organization_id ), class: 'form-control') %>
+                <%= f.select(:organization_id, options_for_select(Organization.pluck(:name, :id), selected: f.object.organization_id ), class: 'form-control') %>
               </div>
             </div>
 

@@ -54,3 +54,8 @@
   <!-- Application-wide Style -->
   *= require global.scss
  */
+
+.strategicobjective::after {
+    counter-increment: section;
+    content: "S " counter(section) ": ";
+}

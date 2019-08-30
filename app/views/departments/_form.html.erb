@@ -1,47 +1,205 @@
-<%= form_with(model: department, local: true) do |form| %>
-  <% if department.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+<fieldset>
+  
+  <%= form_with(model: department, local: true, html: {class: 'form-horizontal'}) do |form| %>
+    <% if department.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+        <ul>
+          <% department.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-      <% department.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="form-group">
+      <label class="col-md-2"> Name: </label>
+      <div class="col-md-9">
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label class="col-md-2"> Organization: </label>
+      <div class="col-md-9">
+        <%= form.select :organization_id,options_for_select(Organization.pluck(:name, :id), selected: form.object.organization_id), {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2"> Plan: </label>
+      <div class="col-md-9">
+        <%= form.select :plan_id, options_for_select(Plan.where(is_locked: false).pluck(:date)) ,{class: 'form-control'} %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Strategic Objective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :strategic_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="strategic_objectives">
+          <%= form.fields_for :strategic_objectives do |f| %>
+            <%= render partial: 'strategic_objective_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :strategic_objectives do  %>
+              <i class="fa fa-plus-circle"> Add Item </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Customer Objective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :customer_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="customer_objectives">
+          <%= form.fields_for :customer_objectives do |f| %>
+            <%= render partial: 'customer_objective_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :customer_objectives do  %>
+              <i class="fa fa-plus-circle"> Add Item </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <hr/>
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Internal Perspective
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :internal_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul>
+          <ul id="internal_perspectives">
+            <%= form.fields_for :internal_perspectives do |f| %>
+              <%= render partial: 'internal_perspective_fields', locals: { f: f } %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association  form, :internal_perspectives do  %>
+                <i class="fa fa-plus-circle"> Add Item </i>
+              <% end  %>
+            </div>
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+
+    <div class="form-group">
+      <label class="col-md-2">
+        Learning & Growth
+      </label>
+      <div class="col-md-9">
+        <%= form.text_area :learning_description, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <ul id="learning_growths">
+          <%= form.fields_for :learning_growths do |f| %>
+            <%= render partial: 'learning_growth_fields', locals: { f: f } %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association  form, :learning_growths do  %>
+              <i class="fa fa-plus-circle"> Add Item  </i>
+            <% end  %>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group" >
+      <div class="col-md-11">
+        <%= link_to t('button_cancel'), :back, class: 'btn btn-warning pull-right' %>
+        <%= form.submit t(:button_create), class: 'btn btn-success pull-right' %>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :plan_id %>
-    <%= form.number_field :plan_id %>
-  </div>
+  <script>
+      $(function() {
+          function check_to_hide_or_show_add_link() {
+              $('#strategic_objectives .nested-fields:visible').length == 5 ?   $('#strategic_objectives .links a').hide() :  $('#strategic_objectives .links a').show();
+              $('#customer_objectives .nested-fields:visible').length == 5 ?   $('#customer_objectives .links a').hide() :  $('#customer_objectives .links a').show();
+              $('#internal_perspectives .nested-fields:visible').length == 5 ?   $('#internal_perspectives .links a').hide() :  $('#internal_perspectives .links a').show();
+              $('#learning_growths .nested-fields:visible').length == 5 ?   $('#learning_growths .links a').hide() :  $('#learning_growths .links a').show();
+          }
 
-  <div class="field">
-    <%= form.label :is_locked %>
-    <%= form.check_box :is_locked %>
-  </div>
+          $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-insert', function() {
+              check_to_hide_or_show_add_link();
+              $('.select2-hidden-accessible').select2('destroy')
+              $( "select" ).not('.select2_with_tag').select2({
+                  theme: "bootstrap"
+              });
+              $('.select').css('width', '92%')
+              $('.select2_with_tag').select2({
+                  tags: true,
+                  theme: "bootstrap",
+                  placeholder: "Select an item",
+                  createTag: function (params) {
+                      var term = $.trim(params.term);
 
-  <div class="field">
-    <%= form.label :strategic_description %>
-    <%= form.text_area :strategic_description %>
-  </div>
+                      if (term === '') {
+                          return null;
+                      }
 
-  <div class="field">
-    <%= form.label :customer_description %>
-    <%= form.text_area :customer_description %>
-  </div>
+                      return {
+                          id: term,
+                          text: term,
+                          newTag: true // add additional parameters
+                      }
+                  }
+              });
+              $( "label select" ).select2("destroy");
+              $( ".fb-select.form-group select" ).select2("destroy");
+              $('.select2').prev().hide();
+              $('#strategic_objectives .counter').each(function(i){
+                  $(this).html('S' + (i+1)  )
+              })
+              $('#customer_objectives .counter').each(function(i){
+                  $(this).html('C' + (i+1)  )
+              })
+              $('#internal_perspectives .counter').each(function(i){
+                  $(this).html('I' + (i+1)  )
+              })
+              $('#learning_growths .counter').each(function(i){
+                  $(this).html('L' + (i+1)  )
+              })
 
-  <div class="field">
-    <%= form.label :internal_description %>
-    <%= form.text_area :internal_description %>
-  </div>
+          });
 
-  <div class="field">
-    <%= form.label :learning_description %>
-    <%= form.text_area :learning_description %>
-  </div>
+          $('#strategic_objectives, #customer_objectives, #internal_perspectives, #learning_growths').on('cocoon:after-remove', function() {
+              check_to_hide_or_show_add_link();
+          });
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+          check_to_hide_or_show_add_link();
+      });
+  </script>
+</fieldset>

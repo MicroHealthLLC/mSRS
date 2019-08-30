@@ -20,9 +20,8 @@
 
       <%= @organization.strategic_description %>
       <ul>
-        <% @organization.strategic_objectives.each do |so| %>
-        <li>
-          <%= so.enumeration.to_s %>
+        <% @organization.strategic_objectives.each_with_index do |so, idx| %>
+        <li> <strong>S<%= idx+1 %>:</strong>  <%= so.enumeration.to_s %>
         </li>
 
         <% end %>
@@ -33,8 +32,8 @@
       <strong>Customer Objective:</strong>
       <%= @organization.customer_description %>
     <ul>
-      <% @organization.customer_objectives.each do |co| %>
-        <li>
+      <% @organization.customer_objectives.each_with_index do |co, idx| %>
+        <li><strong>C<%= idx+1 %>:</strong>
           <%= co.enumeration.to_s %>
         </li>
 
@@ -46,8 +45,8 @@
       <strong>Internal Perspectives:</strong>
       <%= @organization.internal_description %>
     <ul>
-      <% @organization.internal_perspectives.each do |ip| %>
-        <li>
+      <% @organization.internal_perspectives.each_with_index do |ip, idx| %>
+        <li><strong>I<%= idx+1 %>:</strong>
           <%= ip.enumeration.to_s %>
         </li>
 
@@ -59,8 +58,8 @@
       <strong>Learning & Growth:</strong>
       <%= @organization.learning_description %>
     <ul>
-      <% @organization.learning_growths.each do |lg| %>
-        <li>
+      <% @organization.learning_growths.each_with_index do |lg, idx| %>
+        <li><strong>L<%= idx+1 %>:</strong>
           <%= lg.enumeration.to_s %>
         </li>
 

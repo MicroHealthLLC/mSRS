@@ -2,6 +2,7 @@ class DepartmentsController < ProtectForgeryApplication
 
   before_action  :authenticate_user!
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :create_enumaration, only: [:create, :update]
 
   # GET /departments
   # GET /departments.json
@@ -64,6 +65,42 @@ class DepartmentsController < ProtectForgeryApplication
   end
 
   private
+
+  def create_enumaration
+    params[:department][:strategic_objectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless StrategicObjective.find_by_id(v['enumeration_id'])
+        e = StrategicObjective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:department][:strategic_objectives_attributes]
+
+    params[:department][:customer_objectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless CustomerObjective.find_by_id(v['enumeration_id'])
+        e = CustomerObjective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:department][:customer_objectives_attributes]
+
+    params[:department][:learning_growths_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless LearningGrowth.find_by_id(v['enumeration_id'])
+        e = LearningGrowth.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:department][:learning_growths_attributes]
+
+    params[:department][:internal_perspectives_attributes].each do |k, v|
+      next if v['enumeration_id'].blank?
+      unless InternalPerspective.find_by_id(v['enumeration_id'])
+        e = InternalPerspective.create(name: v['enumeration_id'], active: true)
+        v['enumeration_id'] = e.id
+      end
+    end if params[:department][:internal_perspectives_attributes]
+
+  end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_department
       @department = Department.find(params[:id])
@@ -71,6 +108,11 @@ class DepartmentsController < ProtectForgeryApplication
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:plan_id, :is_locked, :strategic_description, :customer_description, :internal_description, :learning_description)
+      params.require(:department).permit(:name, :plan_id, :organization_id, :is_locked, :strategic_description, :customer_description, :internal_description, :learning_description,
+                                         strategic_objectives_attributes: [Principal.safe_attributes],
+                                         customer_objectives_attributes: [Principal.safe_attributes],
+                                         internal_perspectives_attributes: [Principal.safe_attributes],
+                                         learning_growths_attributes: [Principal.safe_attributes],
+                                         )
     end
 end

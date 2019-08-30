@@ -6,19 +6,19 @@ class User < ApplicationRecord
 
   require 'red_carpet'
   # ldap_authenticatable
-  if Rails.env.development?
+  # if Rails.env.development?
     devise :database_authenticatable, :registerable, :timeoutable,
            :recoverable, :rememberable, :trackable, :lockable, :omniauthable,
            :password_expirable, :password_archivable,
            :session_limitable
 
-  else
-    devise :authy_authenticatable, :database_authenticatable, :registerable, :timeoutable,
-           :recoverable, :rememberable, :trackable, :lockable, :omniauthable,
-           :password_expirable, :password_archivable,
-           :session_limitable, :secure_validatable
-
-  end
+  # else
+  #   devise :authy_authenticatable, :database_authenticatable, :registerable, :timeoutable,
+  #          :recoverable, :rememberable, :trackable, :lockable, :omniauthable,
+  #          :password_expirable, :password_archivable,
+  #          :session_limitable, :secure_validatable
+  #
+  # end
 
   attr_accessor :terms
 

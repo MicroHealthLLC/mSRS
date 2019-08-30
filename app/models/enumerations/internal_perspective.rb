@@ -7,6 +7,10 @@ class InternalPerspective < Enumeration
     OptionName
   end
 
+  def self.abreviation
+    'I'
+  end
+
   def objects
     Principal.where(:enumeration_id => self.id)
   end

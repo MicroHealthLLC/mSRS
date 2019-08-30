@@ -1,34 +1,73 @@
+<div>
+  <%= link_to 'Edit', edit_department_path(@department), class: 'btn btn-primary  pull-right' %>
+  <%= link_to 'Back', departments_path, class: 'btn btn-warning pull-right' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2> <%= @department.name %></h2>
+    <p>
+      <strong>Plan:</strong>
+      <%= @department.plan %>
+    </p>
+
+    <p>
+      <strong>Is locked:</strong>
+      <%= @department.is_locked %>
+    </p>
+
+    <p>
+      <strong>Strategic Objective:</strong>
+
+      <%= @department.strategic_description %>
+    <ul>
+      <% @department.strategic_objectives.each_with_index do |so, idx| %>
+        <li> <strong>S<%= idx+1 %>:</strong>  <%= so.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Customer Objective:</strong>
+      <%= @department.customer_description %>
+    <ul>
+      <% @department.customer_objectives.each_with_index do |co, idx| %>
+        <li><strong>C<%= idx+1 %>:</strong>
+          <%= co.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Internal Perspectives:</strong>
+      <%= @department.internal_description %>
+    <ul>
+      <% @department.internal_perspectives.each_with_index do |ip, idx| %>
+        <li><strong>I<%= idx+1 %>:</strong>
+          <%= ip.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Learning & Growth:</strong>
+      <%= @department.learning_description %>
+    <ul>
+      <% @department.learning_growths.each_with_index do |lg, idx| %>
+        <li><strong>L<%= idx+1 %>:</strong>
+          <%= lg.enumeration.to_s %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+  </div>
+</div>
 
 
-<p>
-  <strong>Plan:</strong>
-  <%= @department.plan_id %>
-</p>
-
-<p>
-  <strong>Is locked:</strong>
-  <%= @department.is_locked %>
-</p>
-
-<p>
-  <strong>Strategic description:</strong>
-  <%= @department.strategic_description %>
-</p>
-
-<p>
-  <strong>Customer description:</strong>
-  <%= @department.customer_description %>
-</p>
-
-<p>
-  <strong>Internal description:</strong>
-  <%= @department.internal_description %>
-</p>
-
-<p>
-  <strong>Learning description:</strong>
-  <%= @department.learning_description %>
-</p>
-
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', departments_path %>
