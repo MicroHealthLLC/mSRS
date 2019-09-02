@@ -39,6 +39,10 @@ class User < ApplicationRecord
   has_many :channel_notifications
   has_many :reports, through: :shared_reports
 
+
+  has_many :user_departments, dependent: :destroy
+  has_many :departments, through: :user_departments
+
   STATUS = [['Active', true],['Inactive', false]]
 
   default_scope  -> {includes(:core_demographic).references(:core_demographic)}

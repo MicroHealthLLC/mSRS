@@ -1,0 +1,27 @@
+<h3>Add Department</h3>
+<%= form_tag add_department_user_path(@user) do %>
+  <table class="table table-responsive table-hover">
+    <tr>
+      <td>Department: <%= select_tag :department_id, options_for_select(Department.where.not(id: @user.user_departments.pluck(:department_id)).pluck(:name, :id) ) %></td>
+      <td><%= submit_tag :add, class: 'btn btn-success' %></td>
+    </tr>
+<% end  %>
+
+</table>
+<h3>List</h3>
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>Department</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @user.user_departments.each do |user_dep| %>
+    <tr>
+      <td><%= user_dep.department.name %></td>
+      <td></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

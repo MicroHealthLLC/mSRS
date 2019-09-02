@@ -2,7 +2,7 @@ class UsersController < ProtectForgeryApplication
   before_action  :authenticate_user!
   before_action :find_user, except: [:restore, :index, :active, :audit, :recently_connected]
 
-  before_action :require_admin, only: [:index, :destroy, :active]
+  before_action :require_admin, only: [:add_department, :index, :destroy, :active]
   before_action :authorize, except: [:index, :destroy, :active, :search_users,
                                      :image_upload, :remove_image,
                                      :recently_connected]
@@ -18,6 +18,11 @@ class UsersController < ProtectForgeryApplication
     end
   end
 
+  def add_department
+    @user.user_departments << UserDepartment.new(department_id: params[:department_id])
+    redirect_back(fallback_location: user_path(@user))
+  end
+
   def search_users
     q = params[:q]
     respond_to do |format|
@@ -29,6 +34,8 @@ class UsersController < ProtectForgeryApplication
       }
     end
   end
+
+
 
 
   def image_upload

@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="margin-bottom: 15px">
+    <%= link_to 'New Department', new_department_path, class: 'btn btn-primary pull-right' %>
+  </div>
+</div>
+<div class="row">
+  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <%= render partial: 'details',
+               layout: 'shared/smart_widget_wrapper',
+               locals: {
+                   wid_id: 'departments',
+                   wid_title: 'Departments '
+               } %>
+  </article>
+</div>

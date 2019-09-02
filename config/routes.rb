@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       get 'restore'
       get 'lock'
       get 'unlock'
+      post 'add_department'
       put 'change_password'
       put 'change_basic_info'
       put 'attachments'

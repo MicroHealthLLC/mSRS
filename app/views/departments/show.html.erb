@@ -2,6 +2,7 @@
   <%= link_to 'Edit', edit_department_path(@department), class: 'btn btn-primary  pull-right' %>
   <%= link_to 'Back', departments_path, class: 'btn btn-warning pull-right' %>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <h2> <%= @department.name %></h2>
@@ -21,7 +22,10 @@
       <%= @department.strategic_description %>
     <ul>
       <% @department.strategic_objectives.each_with_index do |so, idx| %>
-        <li> <strong>S<%= idx+1 %>:</strong>  <%= so.enumeration.to_s %>
+        <li>
+          <%= link_to departments_path(enumeration_id: so.enumeration.id, plan_id: @department.plan_id) do %>
+            <strong>S<%= idx+1 %>:</strong>  <%= so.enumeration.to_s %>
+          <% end %>
         </li>
 
       <% end %>
@@ -33,8 +37,11 @@
       <%= @department.customer_description %>
     <ul>
       <% @department.customer_objectives.each_with_index do |co, idx| %>
-        <li><strong>C<%= idx+1 %>:</strong>
-          <%= co.enumeration.to_s %>
+        <li>
+          <%= link_to departments_path(enumeration_id: co.enumeration.id, plan_id: @department.plan_id) do %>
+            <strong>C<%= idx+1 %>:</strong>
+            <%= co.enumeration.to_s %>
+          <% end  %>
         </li>
 
       <% end %>
@@ -46,8 +53,10 @@
       <%= @department.internal_description %>
     <ul>
       <% @department.internal_perspectives.each_with_index do |ip, idx| %>
-        <li><strong>I<%= idx+1 %>:</strong>
-          <%= ip.enumeration.to_s %>
+        <li><%= link_to departments_path(enumeration_id: ip.enumeration.id, plan_id: @department.plan_id) do %>
+            <strong>I<%= idx+1 %>:</strong>
+            <%= ip.enumeration.to_s %>
+          <% end %>
         </li>
 
       <% end %>
@@ -59,8 +68,10 @@
       <%= @department.learning_description %>
     <ul>
       <% @department.learning_growths.each_with_index do |lg, idx| %>
-        <li><strong>L<%= idx+1 %>:</strong>
-          <%= lg.enumeration.to_s %>
+        <li><%= link_to departments_path(enumeration_id: lg.enumeration.id, plan_id: @department.plan_id) do %>
+            <strong>L<%= idx+1 %>:</strong>
+            <%= lg.enumeration.to_s %>
+          <% end %>
         </li>
 
       <% end %>

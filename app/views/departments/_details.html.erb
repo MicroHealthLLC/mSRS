@@ -1,0 +1,78 @@
+<%@departments.each do |dep| %>
+  <div class="col-12" style="padding-left: 15px ">
+
+    <h2> <%= dep.name %></h2>
+    <p>
+      <strong>Plan:</strong>
+      <%= dep.plan %>
+    </p>
+
+    <p>
+      <strong>Is locked:</strong>
+      <%= dep.is_locked %>
+    </p>
+
+    <p>
+      <strong>Strategic Objective:</strong>
+
+      <%= dep.strategic_description %>
+    <ul>
+      <% dep.strategic_objectives.each_with_index do |so, idx| %>
+        <li>
+          <%= link_to departments_path(enumeration_id: so.enumeration.id, plan_id: dep.plan_id) do %>
+            <strong>S<%= idx+1 %>:</strong>  <%= so.enumeration.to_s %>
+          <% end %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Customer Objective:</strong>
+      <%= dep.customer_description %>
+    <ul>
+      <% dep.customer_objectives.each_with_index do |co, idx| %>
+        <li>
+          <%= link_to departments_path(enumeration_id: co.enumeration.id, plan_id: dep.plan_id) do %>
+            <strong>C<%= idx+1 %>:</strong>
+            <%= co.enumeration.to_s %>
+          <% end  %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Internal Perspectives:</strong>
+      <%= dep.internal_description %>
+    <ul>
+      <% dep.internal_perspectives.each_with_index do |ip, idx| %>
+        <li><%= link_to departments_path(enumeration_id: ip.enumeration.id, plan_id: dep.plan_id) do %>
+            <strong>I<%= idx+1 %>:</strong>
+            <%= ip.enumeration.to_s %>
+          <% end %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+    <p>
+      <strong>Learning & Growth:</strong>
+      <%= dep.learning_description %>
+    <ul>
+      <% dep.learning_growths.each_with_index do |lg, idx| %>
+        <li><%= link_to departments_path(enumeration_id: lg.enumeration.id, plan_id: dep.plan_id) do %>
+            <strong>L<%= idx+1 %>:</strong>
+            <%= lg.enumeration.to_s %>
+          <% end %>
+        </li>
+
+      <% end %>
+    </ul>
+    </p>
+
+  </div>
+<% end %>

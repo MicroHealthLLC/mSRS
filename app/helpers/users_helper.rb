@@ -11,7 +11,8 @@ module UsersHelper
     tabs = [
         {:name => 'core_demographic', :partial => 'users/shared/core_demography', :label => :core_demography},
         {:name => 'user_basic', :partial => 'users/shared/user_basic_information', :label => :user_basic_information},
-        {:name => 'password', :partial => 'users/shared/password', :label => :password}
+        {:name => 'password', :partial => 'users/shared/password', :label => :password},
+        {:name => 'departments', :partial => 'users/shared/departments', :label => :departments}
      ]
     tabs
   end

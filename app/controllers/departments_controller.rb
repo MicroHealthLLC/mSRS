@@ -7,7 +7,14 @@ class DepartmentsController < ProtectForgeryApplication
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @departments = Department.visible
+    if params[:plan_id] || params[:enumeration_id]
+      @departments = @departments.where(plan_id: params[:plan_id]  ) if params[:plan_id]
+      if params[:enumeration_id]
+        @departments = @departments.where(id: Principal.where(enumeration_id: params[:enumeration_id]).pluck(:object_id))
+      end
+      render 'all'
+    end
   end
 
   # GET /departments/1

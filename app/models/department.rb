@@ -17,4 +17,12 @@ class Department < ApplicationRecord
 
   validates_uniqueness_of :name
   validates_presence_of :name, :plan_id, :organization_id
+
+  has_many :user_departments
+  has_many :users, through: :user_departments
+
+  def self.visible
+    return where(nil) if User.current.admin?
+    User.current.departments
+  end
 end
