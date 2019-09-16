@@ -141,7 +141,7 @@ service nginx restart
 # Setup
 go to https://your-url/
 
-login with temp account admin@example.com with password admin@2018
+login with temp account admin@example.com with password admin@2019
 
 Change, configure and customize your instance.  callback uri for socialmedia setup below.
 
