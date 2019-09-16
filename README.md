@@ -67,6 +67,8 @@ gem install bundler
 
 yum install nodejs
 
+Install Yarn:  https://yarnpkg.com/lang/en/docs/install/#centos-stable
+
 bundle install
 
 rails db:setup 
