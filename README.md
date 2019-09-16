@@ -52,14 +52,14 @@ yum install git
 # go to /var/www and from there 
 cd /var/www/
 
-git clone https://github.com/MicroHealthLLC/msrs
+git clone https://github.com/MicroHealthLLC/mSRS
 
-nano /var/www/msrs/config/database.yml
+nano /var/www/mSRS/config/database.yml
 
 --enter the password for mysql where it says password then save and exit
 
 # go to the cloned directory 
-cd /var/www/msrs 
+cd /var/www/mSRS
 
 gem install rails
 
