@@ -23,11 +23,11 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 log out then log back in
 
-rvm install ruby-2.5.3
+rvm install ruby-2.6.1
 
-rvm install ruby-devel-2.5.3
+rvm install ruby-devel-2.6.1
 
-bash -l -c "rvm use 2.5.3 --default"
+bash -l -c "rvm use 2.6.1 --default"
 
 # Install Mysql
 yum install mariadb-server mariadb
